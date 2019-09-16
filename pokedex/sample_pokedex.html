@@ -1,28 +1,24 @@
+<!DOCTYPE HTML>
 <html>
 
 <head>
-  <meta charset='utf-8'>
-  <title>The Pokedex</title>
-  
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <meta charset="utf-8">
+  <title>Pokedex</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function () {
-      for (var i = 1; i <= 151; i++) {
-        var source = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + i + ".png"
-
-        $("#images").append("<img src = '" + source + "'alt='pokémon' id ='" + i + "'>");
+      for (var y = 1; y <= 151; y++) {
+        var source = "http://pokeapi.co/media/img/" + y + ".png"
+        $("#images").append("<img src = '" + source + "'alt='pokémon' id ='" + y + "'>");
       }
-
-    $("img").click(function(){
-      var image = $(this).attr("src"); //finds the src of image clicked & has the unique ID of each pokemon!
-      console.log(image); 
-
-      $.get("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+$(this).attr("id"),function(stats){
-        console.log(stats);
-        var str_details = "";
-        for (var i in stats.types){
-          //str details = "<h4>Types(s):</h4><p>"+ stats.types[i].name + "</p><h4>Height:</h4><p>" + stats.height + "</p><h4>Weight:</h4><p>" + stats.weight +"</p>";
-          str_details = `<h3> ${stats.name} </h3>
+      $("img").click(function () {
+        var image = $(this).attr("src");
+        $.get("http://pokeapi.co/api/v1/pokemon/" + $(this).attr("id"), function (stats) {
+          console.log(stats);
+          var str_details = "";
+          for (var i in stats.types) {
+            // str_details = "<h4>Type(s):</h4><p>" + stats.types[i].name + "</p><h4>Height:</h4><p>" + stats.height + "</p><h4>Weight:</h4><p>" + stats.weight + "</p>";
+            str_details = `<h3> ${stats.name} </h3>
                               <img src='${image}' alt = 'pokemon'>
                               <h4>Type(s):</h4>
                               <p>${stats.types[i].name}</p>
@@ -30,19 +26,11 @@
                               <p>${stats.height}</p>
                               <h4>Weight:</h4>
                               <p>${stats.weight}</p>`;
-        }
-        $("#pokedex").html(str_details);
-      },"json")
-    })
-
-     
-      
+          }
+          $("#pokedex").html(str_details);
+        }, "json")
+      })
     });
-
-
-   
-
-    
   </script>
   <style type="text/css">
     @import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah');
@@ -98,30 +86,17 @@
       display: flex;
     }
   </style>
-
 </head>
 
 <body>
-  <h1>Pokedex for Pokemon 1 to 151</h1>
-
-  <div id='main'>
-
-    <div id='images'>
-
+  <h1>The Pokedex for Pokémon [#1 to #151]</h1>
+  <p class="expl">Below you will find all the original pokémon from the very first to the one-hundred-fiftieth!</p>
+  <div id="main">
+    <div id="images">
     </div>
-
-    <div id='pokedex'>
+    <div id="pokedex">
       <h2>Pokedex</h2>
-
     </div>
-  </div>
-
-
-
-
-
-
-
   </div>
 </body>
 
