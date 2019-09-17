@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Weather API - AJAX Project</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('form').submit(function () {
+        //code to build up url
+        var key = '49eb5e0ba864894b9db0ad774faf9b95';
+        var url='http://api.openweathermap.org/data/2.5/weather?q=';
+        url += $('input').val();
+        url +='&&appid=';
+        url += key;
+
+        $.get(url, function (res) {
+
+          console.log(res);
+          var temp = Math.round((res.main['temp']*(9/5))-459.67);
+          $('#forecast').html(
+            '<h1>'+res.name+'</h1><h3>Temperature: '+temp+'F <h3>'
+
+          );
+
+          // $('input').val("");
+
+        }, 'json');
+
+        return false; //return false so the page does not refresh
+      })
+    })
+
+  </script>
+<style type="text/css">
+*{
+    margin: 0px;
+    padding: 0px;
+    outline: 1px dotted darkred;
+}
+
+#wrapper{
+    width: 600px;
+    height: 600px;
+    margin: 0px auto;
+    text-align: center;
+}
+
+#forecast{
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+input, button{
+    border-radius: 5px;
+    width: 250px;
+    height: 30px;
+    margin: 10px auto;
+    display: inline block;
+    font-size: 16px;
+}
+
+h1{
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+h3{
+    font-size: 30px;
+}
+
+
+
+</style>
+
+
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <form action="">
+            <input type="text">
+            <button type="submit">Search Weather</button>
+            <div id="forecast">
+
+            </div>
+            <!-- <input type="ext">
+            <button type="submit">Search Weather</button>t -->
+        </form>
+    </div>
+
+</html>
